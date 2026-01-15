@@ -6,7 +6,7 @@
  */
 
 import { Command } from "commander";
-import { readFileSync } from "fs";
+import { readFileSync, realpathSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { CLI_NAME, ENV_VARS } from "../lib/constants.js";
@@ -142,7 +142,16 @@ Use "${CLI_NAME} <command> --help" for more information about a command.
 export { program };
 
 // Run CLI if this is the main module
-const isMain = process.argv[1] === fileURLToPath(import.meta.url);
+// Resolve symlinks to handle npm link correctly
+function getResolvedPath(p: string): string {
+  try {
+    return realpathSync(p);
+  } catch {
+    return p;
+  }
+}
+
+const isMain = getResolvedPath(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
   program.parseAsync(process.argv).catch(handleError);
 }
