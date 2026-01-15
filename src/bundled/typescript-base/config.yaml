@@ -1,0 +1,20 @@
+name: typescript-base
+description: Base Claude Code configuration for TypeScript projects
+version: 1.0.0
+projectTypes:
+  - web
+  - api
+  - cli
+  - library
+languages:
+  - typescript
+  - javascript
+tags:
+  - typescript
+  - base
+testingApproach: unit
+created: 2026-01-15T00:00:00Z
+updated: 2026-01-15T00:00:00Z
+files:
+  - CLAUDE.md
+  - .claude/settings.json
