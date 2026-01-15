@@ -1,0 +1,21 @@
+name: typescript-react
+description: Claude Code configuration for TypeScript React projects
+version: 1.0.0
+extends: typescript-base
+projectTypes:
+  - web
+  - frontend
+languages:
+  - typescript
+  - javascript
+tags:
+  - react
+  - spa
+  - frontend
+  - vite
+testingApproach: unit
+created: 2026-01-15T00:00:00Z
+updated: 2026-01-15T00:00:00Z
+files:
+  - CLAUDE.md
+  - .claude/settings.json
