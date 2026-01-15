@@ -189,7 +189,7 @@ Override with `CPM_LIBRARY_PATH` environment variable.
 
 ## Claude Code Skill
 
-A Claude Code skill is included for interactive configuration creation.
+A Claude Code skill is included for interactive configuration creation directly within Claude Code.
 
 ### Installation
 
@@ -199,17 +199,76 @@ cpm install-skill
 
 # Or install to current project only
 cpm install-skill --local
+
+# Overwrite existing installation
+cpm install-skill --force
 ```
 
 ### Usage
 
-Once installed, use in Claude Code:
+Once installed, invoke the skill in Claude Code:
 
 ```
 /create-config
 ```
 
-This launches a guided workflow within Claude Code to create new configurations.
+### What the Skill Does
+
+The skill launches a guided, conversational workflow where Claude will ask you about:
+
+1. **Configuration Name** - A unique identifier (e.g., `my-team-react`, `python-ml-project`)
+2. **Description** - What this configuration is for
+3. **Project Type** - web, api, cli, library, or mobile
+4. **Languages** - TypeScript, Python, Go, Rust, etc.
+5. **Testing Approach** - TDD, BDD, unit testing, integration testing
+6. **Parent Configuration** - Optionally extend an existing config (e.g., `typescript-base`)
+
+### Output
+
+The skill creates a complete configuration in your library:
+
+```
+~/.config/claude-prompt-manager/library/[your-config-name]/
+├── config.yaml           # Metadata and settings
+├── CLAUDE.md             # Customized Claude Code instructions
+└── .claude/
+    └── settings.json     # Context include/exclude patterns
+```
+
+### Example Prompts
+
+When using `/create-config`, you can be specific about what you need:
+
+```
+/create-config
+
+> Create a new configuration for our React Native mobile app with Jest testing
+
+> I want to make a config for Python data science projects using pytest and pandas
+
+> Set up a Go microservice configuration that extends typescript-base
+
+> Create a Rust CLI tool configuration with integration tests
+```
+
+### After Creation
+
+Once your configuration is created, use it with the CLI:
+
+```bash
+# Apply to a new project
+cpm apply my-team-react ./new-project
+
+# View the configuration
+cpm show my-team-react --resolved
+
+# Update metadata
+cpm update my-team-react --add-tag production
+
+# Share by versioning your library
+cd ~/.config/claude-prompt-manager/library
+git init && git add . && git commit -m "Add team configurations"
+```
 
 ## Development
 
