@@ -189,7 +189,21 @@ Override with `CPM_LIBRARY_PATH` environment variable.
 
 ## Claude Code Skill
 
-A Claude Code skill is included for interactive configuration creation:
+A Claude Code skill is included for interactive configuration creation.
+
+### Installation
+
+```bash
+# Install globally (available in all projects)
+cpm install-skill
+
+# Or install to current project only
+cpm install-skill --local
+```
+
+### Usage
+
+Once installed, use in Claude Code:
 
 ```
 /create-config
