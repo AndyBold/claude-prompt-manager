@@ -74,7 +74,9 @@ export function validateMetadata(metadata: ConfigurationMetadata): ValidationRes
       (t) => !PROJECT_TYPES.includes(t as (typeof PROJECT_TYPES)[number])
     );
     if (invalidTypes.length > 0) {
-      errors.push(`Invalid project types: ${invalidTypes.join(", ")}. Valid: ${PROJECT_TYPES.join(", ")}`);
+      errors.push(
+        `Invalid project types: ${invalidTypes.join(", ")}. Valid: ${PROJECT_TYPES.join(", ")}`
+      );
     }
   }
 

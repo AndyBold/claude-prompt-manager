@@ -36,11 +36,7 @@ interface ShowOptions {
   resolved?: boolean;
 }
 
-async function runShowCommand(
-  configId: string,
-  options: ShowOptions,
-  cmd: Command
-): Promise<void> {
+async function runShowCommand(configId: string, options: ShowOptions, cmd: Command): Promise<void> {
   const globalOpts = getGlobalOptions(cmd);
 
   // Create library manager

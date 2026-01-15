@@ -7,7 +7,12 @@ import { resolve, join } from "path";
 import { readFile } from "fs/promises";
 import type { Configuration } from "../../lib/config/types.js";
 import type { ProjectType, TestingApproach } from "../../lib/constants.js";
-import { PROJECT_TYPES, TESTING_APPROACHES, CLAUDE_MD_FILENAME, CLAUDE_DIR } from "../../lib/constants.js";
+import {
+  PROJECT_TYPES,
+  TESTING_APPROACHES,
+  CLAUDE_MD_FILENAME,
+  CLAUDE_DIR,
+} from "../../lib/constants.js";
 import { LibraryManager } from "../../lib/library/index.js";
 import { validateConfigId, validateConfiguration } from "../../lib/config/validator.js";
 import { getGlobalOptions, handleError, verboseLog } from "../index.js";
@@ -120,7 +125,9 @@ async function runCreateCommand(
 
   // Output success
   if (globalOpts.json) {
-    console.log(JSON.stringify({ id: configId, path: join(library.getLibraryPath(), configId) }, null, 2));
+    console.log(
+      JSON.stringify({ id: configId, path: join(library.getLibraryPath(), configId) }, null, 2)
+    );
     return;
   }
 
@@ -142,10 +149,7 @@ async function runCreateCommand(
 /**
  * Create configuration from command line options
  */
-async function createFromOptions(
-  configId: string,
-  options: CreateOptions
-): Promise<Configuration> {
+async function createFromOptions(configId: string, options: CreateOptions): Promise<Configuration> {
   const now = new Date();
 
   const claudeMd = generateDefaultClaudeMd(
@@ -175,7 +179,11 @@ async function createFromOptions(
       },
       {
         path: ".claude/settings.json",
-        content: JSON.stringify({ context: { include: ["src/**/*"], exclude: ["node_modules"] } }, null, 2),
+        content: JSON.stringify(
+          { context: { include: ["src/**/*"], exclude: ["node_modules"] } },
+          null,
+          2
+        ),
         type: "json",
       },
     ],
@@ -207,8 +215,14 @@ async function createInteractively(
   const projectTypes = await multiSelect("Project types (select one or more)", projectTypeChoices);
 
   // Languages
-  const languageInput = await input("Languages (comma-separated)", options.language?.join(", ") || "typescript");
-  const languages = languageInput.split(",").map((l) => l.trim()).filter(Boolean);
+  const languageInput = await input(
+    "Languages (comma-separated)",
+    options.language?.join(", ") || "typescript"
+  );
+  const languages = languageInput
+    .split(",")
+    .map((l) => l.trim())
+    .filter(Boolean);
 
   // Testing approach
   const testingChoices: Choice<TestingApproach>[] = TESTING_APPROACHES.map((t) => ({
@@ -219,7 +233,10 @@ async function createInteractively(
 
   // Tags
   const tagInput = await input("Tags (comma-separated)", options.tag?.join(", "));
-  const tags = tagInput.split(",").map((t) => t.trim()).filter(Boolean);
+  const tags = tagInput
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
 
   // Parent configuration
   const configs = await library.getAllConfigurations();
@@ -257,7 +274,11 @@ async function createInteractively(
       },
       {
         path: ".claude/settings.json",
-        content: JSON.stringify({ context: { include: ["src/**/*"], exclude: ["node_modules"] } }, null, 2),
+        content: JSON.stringify(
+          { context: { include: ["src/**/*"], exclude: ["node_modules"] } },
+          null,
+          2
+        ),
         type: "json",
       },
     ],
@@ -299,7 +320,11 @@ async function createFromProject(
     settingsContent = await readFile(settingsPath, "utf-8");
     console.log(style.info(`Found ${CLAUDE_DIR}/settings.json in project`));
   } catch {
-    settingsContent = JSON.stringify({ context: { include: ["src/**/*"], exclude: ["node_modules"] } }, null, 2);
+    settingsContent = JSON.stringify(
+      { context: { include: ["src/**/*"], exclude: ["node_modules"] } },
+      null,
+      2
+    );
     console.log(style.dim(`No ${CLAUDE_DIR}/settings.json found, using default`));
   }
 

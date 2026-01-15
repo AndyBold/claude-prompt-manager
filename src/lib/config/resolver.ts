@@ -4,12 +4,7 @@
  * Resolves inheritance chains and merges configurations with parent settings.
  */
 
-import type {
-  Configuration,
-  ConfigurationFile,
-  ResolvedConfiguration,
-  FileType,
-} from "./types.js";
+import type { Configuration, ConfigurationFile, ResolvedConfiguration, FileType } from "./types.js";
 import { InheritanceCycleError, ParentNotFoundError } from "../errors.js";
 
 /**

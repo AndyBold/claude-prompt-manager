@@ -12,10 +12,7 @@ import { PermissionDeniedError } from "../errors.js";
 /**
  * Write a configuration to a directory
  */
-export async function writeConfiguration(
-  config: Configuration,
-  targetPath: string
-): Promise<void> {
+export async function writeConfiguration(config: Configuration, targetPath: string): Promise<void> {
   // Create config directory
   await ensureDirectory(targetPath);
 
@@ -159,10 +156,7 @@ export function updateTimestamps(metadata: ConfigurationMetadata): Configuration
 /**
  * Bump version according to semver type
  */
-export function bumpVersion(
-  currentVersion: string,
-  type: "major" | "minor" | "patch"
-): string {
+export function bumpVersion(currentVersion: string, type: "major" | "minor" | "patch"): string {
   const parts = currentVersion.split(".").map(Number);
 
   if (parts.length !== 3 || parts.some(isNaN)) {

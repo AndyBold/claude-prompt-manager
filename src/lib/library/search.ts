@@ -162,10 +162,7 @@ function scoreQuery(
 /**
  * Get suggestions for search refinement
  */
-export function getSearchSuggestions(
-  configs: Configuration[],
-  query: string
-): string[] {
+export function getSearchSuggestions(configs: Configuration[], query: string): string[] {
   const suggestions = new Set<string>();
   const lowerQuery = query.toLowerCase();
 

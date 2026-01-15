@@ -52,12 +52,7 @@ export function generateDiff(
   );
 
   // Generate structured patch
-  const patch = structuredPatch(
-    `a/${filePath}`,
-    `b/${filePath}`,
-    existingContent,
-    newContent
-  );
+  const patch = structuredPatch(`a/${filePath}`, `b/${filePath}`, existingContent, newContent);
 
   // Count additions and deletions
   let additions = 0;

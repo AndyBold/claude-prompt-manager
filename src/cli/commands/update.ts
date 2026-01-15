@@ -104,7 +104,9 @@ async function runUpdateCommand(
 
   if (changes.length === 0) {
     console.log(style.dim("No changes specified."));
-    console.log(style.dim("Use --name, --description, --add-tag, --remove-tag, or --bump-version."));
+    console.log(
+      style.dim("Use --name, --description, --add-tag, --remove-tag, or --bump-version.")
+    );
     return;
   }
 

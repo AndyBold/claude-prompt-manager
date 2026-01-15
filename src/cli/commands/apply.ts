@@ -108,7 +108,9 @@ async function runApplyCommand(
 
   // Handle conflicts with interactive resolution
   if (result.conflicts.length > 0 && !options.dryRun && options.interactive !== false) {
-    console.log(style.warning(`Found ${result.conflicts.length} conflict(s) that need resolution.`));
+    console.log(
+      style.warning(`Found ${result.conflicts.length} conflict(s) that need resolution.`)
+    );
     blankLine();
 
     // Resolve conflicts interactively
@@ -178,7 +180,9 @@ async function runApplyCommand(
   } else if (result.conflicts.length > 0) {
     // Conflicts exist but not resolved (non-interactive or dry-run)
     console.log(style.warning("Configuration has conflicts that need resolution."));
-    console.log(style.dim("Run without --dry-run to resolve interactively, or use --force to overwrite."));
+    console.log(
+      style.dim("Run without --dry-run to resolve interactively, or use --force to overwrite.")
+    );
     for (const conflict of result.conflicts) {
       console.log(style.dim(`  - ${conflict.path}`));
     }

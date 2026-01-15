@@ -38,9 +38,7 @@ export async function resolveConflict(conflict: ConflictInfo): Promise<ResolvedC
   blankLine();
 
   // Show summary
-  console.log(
-    style.dim(`Changes: +${diff.additions} additions, -${diff.deletions} deletions`)
-  );
+  console.log(style.dim(`Changes: +${diff.additions} additions, -${diff.deletions} deletions`));
   blankLine();
 
   // Prompt for resolution
@@ -79,7 +77,7 @@ export async function resolveConflict(conflict: ConflictInfo): Promise<ResolvedC
     case "replace":
       content = conflict.newContent;
       break;
-    case "merge":
+    case "merge": {
       const mergeResult = mergeContent(
         conflict.existingContent,
         conflict.newContent,
@@ -97,6 +95,7 @@ export async function resolveConflict(conflict: ConflictInfo): Promise<ResolvedC
         console.log(style.success("Merge completed successfully."));
       }
       break;
+    }
     case "skip":
     default:
       content = conflict.existingContent;
@@ -113,9 +112,7 @@ export async function resolveConflict(conflict: ConflictInfo): Promise<ResolvedC
 /**
  * Resolve multiple conflicts interactively
  */
-export async function resolveConflicts(
-  conflicts: ConflictInfo[]
-): Promise<ResolvedConflict[]> {
+export async function resolveConflicts(conflicts: ConflictInfo[]): Promise<ResolvedConflict[]> {
   const resolved: ResolvedConflict[] = [];
 
   for (let i = 0; i < conflicts.length; i++) {

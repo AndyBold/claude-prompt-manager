@@ -102,5 +102,7 @@ async function runSearchCommand(
   }
 
   blankLine();
-  console.log(style.dim(`${results.length} configuration${results.length === 1 ? "" : "s"} found.`));
+  console.log(
+    style.dim(`${results.length} configuration${results.length === 1 ? "" : "s"} found.`)
+  );
 }
