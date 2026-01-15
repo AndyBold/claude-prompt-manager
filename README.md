@@ -235,4 +235,4 @@ make run ARGS="list"
 
 ## License
 
-MIT
+This project was generated with LLM assistance and is released into the public domain. See [LICENSE](LICENSE) for details.
