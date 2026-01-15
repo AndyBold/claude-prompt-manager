@@ -4,11 +4,7 @@
 
 import { join } from "path";
 import type { Configuration, SearchCriteria } from "../config/types.js";
-import {
-  loadConfiguration,
-  loadMetadataOnly,
-  listConfigDirectories,
-} from "../config/loader.js";
+import { loadConfiguration, loadMetadataOnly, listConfigDirectories } from "../config/loader.js";
 import { writeConfiguration, removeConfiguration } from "../config/writer.js";
 import { LIBRARY_PATH } from "../constants.js";
 import { ConfigNotFoundError, ConfigExistsError } from "../errors.js";
@@ -238,20 +234,12 @@ export class LibraryManager {
 /**
  * Filter configurations by search criteria
  */
-function filterConfigurations(
-  configs: Configuration[],
-  criteria: SearchCriteria
-): Configuration[] {
+function filterConfigurations(configs: Configuration[], criteria: SearchCriteria): Configuration[] {
   return configs.filter((config) => {
     // Filter by query (name, description, tags)
     if (criteria.query) {
       const query = criteria.query.toLowerCase();
-      const searchableText = [
-        config.name,
-        config.description,
-        ...config.tags,
-        ...config.languages,
-      ]
+      const searchableText = [config.name, config.description, ...config.tags, ...config.languages]
         .join(" ")
         .toLowerCase();
 
@@ -291,9 +279,6 @@ function filterConfigurations(
 /**
  * Create a default library manager instance
  */
-export function createLibraryManager(
-  libraryPath?: string,
-  bundledPath?: string
-): LibraryManager {
+export function createLibraryManager(libraryPath?: string, bundledPath?: string): LibraryManager {
   return new LibraryManager(libraryPath, bundledPath);
 }
