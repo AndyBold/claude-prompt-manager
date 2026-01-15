@@ -22,6 +22,7 @@ import { createUpdateCommand } from "./commands/update.js";
 import { createRemoveCommand } from "./commands/remove.js";
 import { createValidateCommand } from "./commands/validate.js";
 import { createInstallSkillCommand } from "./commands/install-skill.js";
+import { createImportCommand } from "./commands/import.js";
 
 // Get package.json for version
 const __filename = fileURLToPath(import.meta.url);
@@ -122,6 +123,7 @@ program.addCommand(createUpdateCommand());
 program.addCommand(createRemoveCommand());
 program.addCommand(createValidateCommand());
 program.addCommand(createInstallSkillCommand());
+program.addCommand(createImportCommand());
 
 program.addHelpText(
   "after",
@@ -132,6 +134,7 @@ Examples:
   ${CLI_NAME} apply typescript-react   Apply configuration to current directory
   ${CLI_NAME} search react             Search for configurations
   ${CLI_NAME} create my-config         Create a new configuration
+  ${CLI_NAME} import ./CLAUDE.md       Import an existing prompt file
   ${CLI_NAME} install-skill            Install Claude Code skill
 
 Use "${CLI_NAME} <command> --help" for more information about a command.

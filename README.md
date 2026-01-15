@@ -97,6 +97,26 @@ cpm create --from-project ./existing        # Extract from existing project
 cpm create --name my-config --extends typescript-base
 ```
 
+### `cpm import <file>`
+
+Import an existing prompt file into the configuration library.
+
+```bash
+cpm import ./CLAUDE.md                      # Import with interactive prompts
+cpm import ./my-prompt.md --name "My Config" --id my-config
+cpm import ./CLAUDE.md --non-interactive --name "Auto Import"
+```
+
+The import command will prompt you for:
+- **Configuration name** - Display name for the configuration
+- **Description** - What this configuration is for
+- **Configuration ID** - Unique identifier (auto-generated from name if not provided)
+- **Project types** - web, api, cli, library, mobile
+- **Languages** - TypeScript, Python, Go, etc.
+- **Tags** - Additional searchable tags
+
+If importing a markdown file that isn't named `CLAUDE.md`, you'll be asked whether to rename it.
+
 ### `cpm update <config>`
 
 Update a configuration's metadata.

@@ -163,6 +163,42 @@ export class LibraryManager {
   }
 
   /**
+   * Create a new configuration with file contents
+   */
+  async createConfiguration(
+    config: Omit<Configuration, "fileContents" | "sourcePath">,
+    fileContents: Record<string, { content: string; type: "markdown" | "json" | "yaml" | "text" }>
+  ): Promise<void> {
+    if (await this.configurationExists(config.id)) {
+      throw new ConfigExistsError(config.id);
+    }
+
+    // Ensure library directory exists
+    await this.initialize();
+
+    const fullConfig: Configuration = {
+      ...config,
+      fileContents: Object.entries(fileContents).map(([path, { content, type }]) => ({
+        path,
+        content,
+        type,
+      })),
+      sourcePath: join(this.libraryPath, config.id),
+    };
+
+    const configPath = join(this.libraryPath, config.id);
+    await writeConfiguration(fullConfig, configPath);
+    this.configCache.delete(config.id);
+  }
+
+  /**
+   * List all configurations (alias for getAllConfigurations)
+   */
+  async listConfigurations(): Promise<Configuration[]> {
+    return this.getAllConfigurations();
+  }
+
+  /**
    * Update an existing configuration
    */
   async updateConfiguration(config: Configuration): Promise<void> {
