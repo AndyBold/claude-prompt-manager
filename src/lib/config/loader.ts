@@ -9,6 +9,7 @@ import type { Configuration, ConfigurationFile, ConfigurationMetadata } from "./
 import type { ProjectType, TestingApproach } from "../constants.js";
 import { CONFIG_FILENAME, getFileType } from "../constants.js";
 import { ConfigNotFoundError, InvalidConfigError, FileNotFoundError } from "../errors.js";
+import { resolveSafePath } from "./path-safety.js";
 
 /**
  * Load a configuration from a directory
@@ -100,7 +101,7 @@ async function loadConfigFiles(
   const files: ConfigurationFile[] = [];
 
   for (const filePath of filePaths) {
-    const fullPath = join(configPath, filePath);
+    const fullPath = resolveSafePath(configPath, filePath);
 
     try {
       const content = await readFile(fullPath, "utf-8");

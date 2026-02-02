@@ -8,6 +8,7 @@ import { stringify as stringifyYaml } from "yaml";
 import type { Configuration, ConfigurationMetadata, ConfigurationFile } from "./types.js";
 import { CONFIG_FILENAME } from "../constants.js";
 import { PermissionDeniedError } from "../errors.js";
+import { resolveSafePath } from "./path-safety.js";
 
 /**
  * Write a configuration to a directory
@@ -69,7 +70,7 @@ export async function writeConfigFiles(
   targetPath: string
 ): Promise<void> {
   for (const file of files) {
-    const filePath = join(targetPath, file.path);
+    const filePath = resolveSafePath(targetPath, file.path);
     await ensureDirectory(dirname(filePath));
     await safeWriteFile(filePath, file.content);
   }
@@ -86,9 +87,8 @@ export async function writeFilesToProject(
   const errors: string[] = [];
 
   for (const file of files) {
-    const filePath = join(projectPath, file.path);
-
     try {
+      const filePath = resolveSafePath(projectPath, file.path);
       await ensureDirectory(dirname(filePath));
       await safeWriteFile(filePath, file.content);
       created.push(file.path);

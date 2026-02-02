@@ -16,6 +16,7 @@ import { writeFilesToProject, ensureDirectory } from "../config/writer.js";
 import { getConflictingFiles } from "./detector.js";
 import { mergeContent } from "./merger.js";
 import { ConflictDetectedError } from "../errors.js";
+import { resolveSafePath } from "../config/path-safety.js";
 
 /**
  * Apply a configuration to a target project
@@ -64,7 +65,7 @@ export async function applyConfiguration(
       // Build conflict info for each conflicting file
       for (const file of filesToApply) {
         if (conflictingFiles.includes(file.path)) {
-          const existingPath = join(options.targetPath, file.path);
+          const existingPath = resolveSafePath(options.targetPath, file.path);
           const existingContent = await readFile(existingPath, "utf-8");
 
           result.conflicts.push({
@@ -118,7 +119,7 @@ export async function applyConfiguration(
         result.filesModified.push(file.path);
       } else if (options.mode === "merge") {
         // Merge mode - attempt to merge content
-        const existingPath = join(options.targetPath, file.path);
+        const existingPath = resolveSafePath(options.targetPath, file.path);
         const existingContent = await readFile(existingPath, "utf-8");
 
         const mergeResult = mergeContent(existingContent, file.content, file.path);

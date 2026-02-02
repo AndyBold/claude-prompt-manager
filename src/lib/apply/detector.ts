@@ -5,6 +5,7 @@
 import { stat, readFile } from "fs/promises";
 import { join } from "path";
 import { CLAUDE_MD_FILENAME, CLAUDE_DIR } from "../constants.js";
+import { resolveSafePath } from "../config/path-safety.js";
 
 /**
  * Detection result for a project
@@ -79,7 +80,7 @@ export async function detectExistingConfig(targetPath: string): Promise<Detectio
  */
 export async function fileExists(targetPath: string, relativePath: string): Promise<boolean> {
   try {
-    const fullPath = join(targetPath, relativePath);
+    const fullPath = resolveSafePath(targetPath, relativePath);
     const stats = await stat(fullPath);
     return stats.isFile();
   } catch {

@@ -182,6 +182,14 @@ files:
     type: json
 ```
 
+## Path Safety Errors
+
+The library validates file paths to prevent path traversal. These error message constants are centralized in `src/lib/config/path-safety.ts` under `PATH_ERRORS`:
+
+- `PATH_ERRORS.EMPTY`: path is empty or not a string
+- `PATH_ERRORS.NOT_RELATIVE`: path is absolute, has a drive/UNC root, or is otherwise not relative
+- `PATH_ERRORS.OUTSIDE_BASE`: resolved path escapes the base directory
+
 ## Bundled Configurations
 
 | Configuration | Description |
